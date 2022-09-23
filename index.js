@@ -8,7 +8,7 @@ const express = require('express')
 const app = express()
 
 // Import router from file in controllers folder:
-app.use('/places', require('.controllers/places'))
+app.use('/places', require('./controllers/places'))
 
 
 // Create the home page route:
