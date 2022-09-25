@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 
 // Create a 404 route (needs to be last route or will override page):
 app.get('*', (req, res) => {
-    res.status(404).send('<h1>404 Page</h1>')
+    res.render('error404')
 })
 
 // Call app.listen() to keep server open:
