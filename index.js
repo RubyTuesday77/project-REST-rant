@@ -13,14 +13,13 @@ app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
 
 
-
 // Import router from file in controllers folder:
 app.use('/places', require('./controllers/places'))
 
 
 // Create the home page route:
 app.get('/', (req, res) => {
-    res.send('home')
+    res.render('home')
 })
 
 // Create a 404 route (needs to be last route or will override page):
