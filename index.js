@@ -7,15 +7,18 @@ const express = require('express')
 // Initialize app by calling function returned by the express module:
 const app = express()
 
+// Code added ?????
+// app.set('views', __dirname + '/views')
 
 // Add JSX code that defines the view engine (needs to be above routes):
 app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
 
+// Add code to declare static folder:
+app.use(express.static('public'))
 
 // Import router from file in controllers folder:
 app.use('/places', require('./controllers/places'))
-
 
 // Create the home page route:
 app.get('/', (req, res) => {
