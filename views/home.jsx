@@ -12,9 +12,6 @@ function home() {
                         Photo by <a href="https://unsplash.com/@covertnine">Tim Toomey</a> on <a href="https://unsplash.com/photos/STqHLqMne3k">Unsplash</a>
                     </div>
                 </div>
-                <a href="/places">
-                    <button className="btn btn-primary">Places Page</button>
-                </a>
             </main>
         </Def>
     )
