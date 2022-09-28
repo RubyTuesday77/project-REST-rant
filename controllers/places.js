@@ -19,9 +19,13 @@ router.get('/', (req, res) => {
             pic: 'images/coffee-shop.jpg'
         }
     ]
-      
     res.render('places/index', {places})
 })
+
+// Create route - GET /new:
+router.get('/new', (req, res) => {
+    res.render('places/new')
+  })
 
 // Export express router:
 module.exports = router
