@@ -16,6 +16,10 @@ function error404() {
                 <a href="/places">
                     <button className="btn btn-primary">Places Page</button>
                 </a>
+                <br />
+                <a href="./">
+                    <button className="btn btn-primary">REST-Rant HOME</button>
+                </a>
             </main>
         </Def>
     )
