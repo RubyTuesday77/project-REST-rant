@@ -8,7 +8,7 @@ const express = require('express')
 const app = express()
 
 // Code added ?????
-// app.set('views', __dirname + '/views')
+app.set('views', __dirname + '/views')
 
 // Add JSX code that defines the view engine (needs to be above routes):
 app.set('view engine', 'jsx')

@@ -1,7 +1,7 @@
 // Create express router:
 const router = require('express').Router()
 
-// Create first route - GET /places:
+// Create route - GET /places:
 router.get('/', (req, res) => {
     let places = [
         {
