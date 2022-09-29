@@ -4,6 +4,11 @@ require('dotenv').config()
 // Require needed node modules:
 const express = require('express')
 
+
+// Require method-override package 
+const methodOverride = require('method-override')
+
+
 // Initialize app by calling function returned by the express module:
 const app = express()
 
@@ -19,6 +24,9 @@ app.use(express.static('public'))
 
 // Add body parser tool:
 app.use(express.urlencoded({ extended: true }))
+
+// Add app.use() statement that specifies _method as keyword to change methods:
+app.use(methodOverride('_method'))
 
 // Import router from file in controllers folder:
 app.use('/places', require('./controllers/places'))
