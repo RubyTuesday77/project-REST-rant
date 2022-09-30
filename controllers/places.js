@@ -13,8 +13,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     console.log(req.body)
     if(!req.body.pic) {
-        // Default image if one not provided
-        req.body.pic = 'http://placekitten.com/400/400'
+        req.body.pic = 'http://placekitten.com/400/400'  // Default image if one not provided
     }
     if(!req.body.city) {
         req.body.city = 'Anytown'
@@ -22,8 +21,7 @@ router.post('/', (req, res) => {
     if(!req.body.state) {
         req.body.state = 'USA'
     }
-    // Add new place's data, found in req.body, to the places array by using the push() method
-    places.push(req.body)
+    places.push(req.body)  // Add new place's data, found in req.body, to the places array by using the push() method
     res.redirect('/places')
 })
 
@@ -48,6 +46,7 @@ router.get('/:id', (req, res) => {
     }
 })
 
+
 // Create DELETE route: DELETE places/:id:
 router.delete('/:id', (req, res) => {
     let id = Number(req.params.id)
@@ -62,6 +61,7 @@ router.delete('/:id', (req, res) => {
         res.redirect('/places')
     }
 })
+
 
 // Create EDIT route: GET places/:id/edit:
 router.get('/:id/edit', (req, res) => {
