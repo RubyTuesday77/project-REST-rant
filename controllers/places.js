@@ -72,6 +72,7 @@ router.get('/:id/edit', (req, res) => {
 })
 
 
+
 // UPDATE
 // Create UPDATE route: PUT places/:id:
 router.put('/:id', (req, res) => {
@@ -99,6 +100,7 @@ router.put('/:id', (req, res) => {
 })
 
 
+
 // DELETE
 // Create DELETE route: DELETE places/:id:
 router.delete('/:id', (req, res) => {
@@ -114,6 +116,7 @@ router.delete('/:id', (req, res) => {
         res.redirect('/places')
     }
 })
+
 
 
 // Create route: POST places/:id/comment:
