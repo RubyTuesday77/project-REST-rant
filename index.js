@@ -4,7 +4,6 @@ require('dotenv').config()
 // Require needed node modules:
 const express = require('express')
 
-
 // Require method-override package 
 const methodOverride = require('method-override')
 
@@ -13,7 +12,7 @@ const methodOverride = require('method-override')
 const app = express()
 
 // Code added ?????
-// app.set('views', __dirname + '/views')
+app.set('views', __dirname + '/views')
 
 // Add JSX code that defines the view engine (needs to be above routes):
 app.set('view engine', 'jsx')

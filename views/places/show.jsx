@@ -5,16 +5,18 @@ function show(data) {
     return (
         <Def>
             <main>
-                <h1>{ data.place.name }</h1>
-                <img src={ `/places/${data.place.pic}` } alt={ data.place.name } />
-                <div>
-                    <h4>Rating</h4>
-                    <p>No Ratings</p>
-                </div>
-                <div>
-                    <h4>Comments</h4>
-                    <p>No Comments</p>
-                </div>
+                <h2>{ data.place.name }</h2>
+                <img src={ data.place.pic } alt={ data.place.name } />
+                <h3>Location: { data.place.city }, { data.place.state }</h3>
+                <h4>Cuisines: { data.place.cuisines }</h4>
+                <section>
+                    <h2>Ratings</h2>
+                    <p>No ratings yet...</p>
+                </section>
+                <section>
+                    <h2>Comments</h2>
+                    <p>No comments yet...</p>
+                </section>
                 <a href={ `/places/${data.id}/edit` } className="btn btn-warning">
                     Edit
                 </a>
