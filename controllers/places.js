@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
             res.render('places/index', { places })
         })
         .catch(err => {
-            console.log(err)
+            console.log('err', err)
             res.render('error404')
         })
 })
@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
             res.redirect('/places')
         })
         .catch(err => {
-            console.log(err)
+            console.log('err', err)
             res.render('error404')
         })
     /*
@@ -41,6 +41,7 @@ router.post('/', (req, res) => {
         req.body.state = 'USA'
     }
     places.push(req.body)  // Add new place's data, found in req.body, to the places array by using the push() method
+    res.redirect('/places')
     */
 })
 
@@ -57,6 +58,14 @@ router.get('/new', (req, res) => {
 //SHOW
 // Create SHOW route: GET /places/:id:
 router.get('/:id', (req, res) => {
+    db.Place.findById(req.params.id)
+        .then(place => {
+            res.render('places/show', { place })
+        })
+        .catch(err => {
+            console.log('err', err)
+            res.render('error404')
+        })
     /*
     let id = Number(req.params.id)
     if(isNaN(id)) {
@@ -69,7 +78,6 @@ router.get('/:id', (req, res) => {
         res.render('places/show', { place: places[id], id })
     }
     */
-    res.send('GET /places/:id stub')
 })
 
 
