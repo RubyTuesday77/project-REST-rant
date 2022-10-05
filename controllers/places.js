@@ -1,21 +1,36 @@
 // Create express router:
 const router = require('express').Router()
-const places = require('../models/places.js')
-
+// const places = require('../models/places.js') - replaced with db variable
+const db = require('../models')
 
 
 // INDEX:
-// Create route: GET places/index:
+// Create route: GET /places:
 router.get('/', (req, res) => {
-    res.render('places/index', { places })
+    db.Place.find()
+        .then((places) => {
+            res.render('places/index', { places })
+        })
+        .catch(err => {
+            console.log(err)
+            res.render('error404')
+        })
 })
 
 
 
-// CREATE
-// Create route: POST places:
+// CREATE:
+// Create route: POST /places:
 router.post('/', (req, res) => {
-    console.log(req.body)
+    db.Place.create(req.body)
+        .then(() => {
+            res.redirect('/places')
+        })
+        .catch(err => {
+            console.log(err)
+            res.render('error404')
+        })
+    /*
     if(!req.body.pic) {
         req.body.pic = 'http://placekitten.com/400/400'  // Default image if one not provided
     }
@@ -26,13 +41,13 @@ router.post('/', (req, res) => {
         req.body.state = 'USA'
     }
     places.push(req.body)  // Add new place's data, found in req.body, to the places array by using the push() method
-    res.redirect('/places')
+    */
 })
 
 
 
 // NEW
-// Create NEW route: GET places/new:
+// Create NEW route: GET /places/new:
 router.get('/new', (req, res) => {
     res.render('places/new')
 })
@@ -40,8 +55,9 @@ router.get('/new', (req, res) => {
 
 
 //SHOW
-// Create SHOW route: GET places/:id:
+// Create SHOW route: GET /places/:id:
 router.get('/:id', (req, res) => {
+    /*
     let id = Number(req.params.id)
     if(isNaN(id)) {
         res.render('error404')
@@ -52,13 +68,16 @@ router.get('/:id', (req, res) => {
     else {
         res.render('places/show', { place: places[id], id })
     }
+    */
+    res.send('GET /places/:id stub')
 })
 
 
 
 // EDIT
-// Create EDIT route: GET places/:id/edit:
+// Create EDIT route: GET /places/:id/edit:
 router.get('/:id/edit', (req, res) => {
+    /*
     let id = Number(req.params.id)
     if(isNaN(id)) {
         res.render('error404')
@@ -69,13 +88,16 @@ router.get('/:id/edit', (req, res) => {
     else {
         res.render('places/edit', { place: places[id], id }) //
     }
+    */
+    res.send('GET /places/:id/edit stub')
 })
 
 
 
 // UPDATE
-// Create UPDATE route: PUT places/:id:
+// Create UPDATE route: PUT /places/:id:
 router.put('/:id', (req, res) => {
+    /*
     let id = Number(req.params.id)
     if(isNaN(id)) {
         res.render('error404')
@@ -97,13 +119,16 @@ router.put('/:id', (req, res) => {
         places[id] = req.body  // Save new data in places[id]
         res.redirect(`/places/${id}`)
     }
+    */
+    res.send('PUT /places/:id stub')
 })
 
 
 
 // DELETE
-// Create DELETE route: DELETE places/:id:
+// Create DELETE route: DELETE /places/:id:
 router.delete('/:id', (req, res) => {
+    /*
     let id = Number(req.params.id)
     if(isNaN(id)) {
         res.render('error404')
@@ -115,15 +140,23 @@ router.delete('/:id', (req, res) => {
         places.splice(id, 1)
         res.redirect('/places')
     }
+    */
+    res.send('DELETE /places/:id stub')
 })
 
 
 
-// Create route: POST places/:id/comment:
+// Create route: POST /places/:id/rant:
+router.post('/:id/rant', (req, res) => {
+    res.send('GET /places/:id/rant stub')
+})
 
 
 
-// Create route: DELETE places/:id/comment/commentId:
+// Create route: DELETE /places/:id/rant/rantId:
+router.delete('/:id/rant/:rantId', (req, res) => {
+    res.send('GET /places/:id/rant/:rantId stub')
+})
 
 
 

@@ -7,7 +7,6 @@ const express = require('express')
 // Require method-override package 
 const methodOverride = require('method-override')
 
-
 // Initialize app by calling function returned by the express module:
 const app = express()
 
