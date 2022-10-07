@@ -22,13 +22,26 @@ router.get('/', (req, res) => {
 // CREATE:
 // Create route: POST /places:
 router.post('/', (req, res) => {
+    if(!req.body.pic) {
+        req.body.pic = 'http://placekitten.com/350/350'
+    }
     db.Place.create(req.body)
         .then(() => {
             res.redirect('/places')
         })
         .catch(err => {
-            console.log('err', err)
+            if(err && err.name == 'ValidationError') {
+                let message = 'Validation Error: '
+                for(var field in err.errors) {
+                    message += `${field} was ${err.errors[field].value}. `
+                    message += `${err.errors[field].message}`
+                }
+                console.log('Validation error message', message)
+                res.render('places/new', { message })
+            }
+            else {
             res.render('error404')
+            }
         })
 })
 
@@ -46,25 +59,13 @@ router.get('/new', (req, res) => {
 // Create SHOW route: GET /places/:id:
 router.get('/:id', (req, res) => {
     db.Place.findById(req.params.id)
-        .then(place => {
+        .then((place) => {
             res.render('places/show', { place })
         })
         .catch(err => {
             console.log('err', err)
             res.render('error404')
         })
-    /*
-    let id = Number(req.params.id)
-    if(isNaN(id)) {
-        res.render('error404')
-    }
-    else if(!places[id]) {
-        res.render('error404')
-    }
-    else {
-        res.render('places/show', { place: places[id], id })
-    }
-    */
 })
 
 
@@ -72,19 +73,14 @@ router.get('/:id', (req, res) => {
 // EDIT
 // Create EDIT route: GET /places/:id/edit:
 router.get('/:id/edit', (req, res) => {
-    /*
-    let id = Number(req.params.id)
-    if(isNaN(id)) {
-        res.render('error404')
-    }
-    else if(!places[id]) {
-        res.render('error404')
-    }
-    else {
-        res.render('places/edit', { place: places[id], id }) //
-    }
-    */
-    res.send('GET /places/:id/edit stub')
+    db.Place.findById(req.params.id)
+        .then((place) => {
+            res.render('places/edit', { place })
+        })
+        .catch(err => {
+            console.log('err', err)
+            res.render('error404')
+        })
 })
 
 
@@ -92,30 +88,14 @@ router.get('/:id/edit', (req, res) => {
 // UPDATE
 // Create UPDATE route: PUT /places/:id:
 router.put('/:id', (req, res) => {
-    /*
-    let id = Number(req.params.id)
-    if(isNaN(id)) {
-        res.render('error404')
-    }
-    else if(!places[id]) {
-        res.render('error404')
-    }
-    else {
-        // Make sure data in req.body is valid
-        if(!req.body.pic) {
-            req.body.pic = 'http://placekitten.com/400/400'  // Default image if one not provided
-        }
-        if(!req.body.city) {
-            req.body.city = 'Anytown'
-        }
-        if(!req.body.state) {
-            req.body.state = 'USA'
-        }
-        places[id] = req.body  // Save new data in places[id]
-        res.redirect(`/places/${id}`)
-    }
-    */
-    res.send('PUT /places/:id stub')
+    db.Place.findByIdAndUpdate(req.params.id, req.body)
+        .then(() => {
+            res.redirect(`/places/${req.params.id}`)
+        })
+        .catch(err => {
+            console.log('err', err)
+            res.render('error404')
+        })
 })
 
 
@@ -123,20 +103,14 @@ router.put('/:id', (req, res) => {
 // DELETE
 // Create DELETE route: DELETE /places/:id:
 router.delete('/:id', (req, res) => {
-    /*
-    let id = Number(req.params.id)
-    if(isNaN(id)) {
-        res.render('error404')
-    }
-    else if(!places[id]) {
-        res.render('error404')
-    }
-    else {
-        places.splice(id, 1)
-        res.redirect('/places')
-    }
-    */
-    res.send('DELETE /places/:id stub')
+    db.Place.findByIdAndDelete(req.params.id)
+        .then(() => {
+            res.redirect('/places')
+        })
+        .catch(err => {
+            console.log('err', err)
+            res.render('error404')
+        })
 })
 
 
