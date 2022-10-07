@@ -30,19 +30,6 @@ router.post('/', (req, res) => {
             console.log('err', err)
             res.render('error404')
         })
-    /*
-    if(!req.body.pic) {
-        req.body.pic = 'http://placekitten.com/400/400'  // Default image if one not provided
-    }
-    if(!req.body.city) {
-        req.body.city = 'Anytown'
-    }
-    if(!req.body.state) {
-        req.body.state = 'USA'
-    }
-    places.push(req.body)  // Add new place's data, found in req.body, to the places array by using the push() method
-    res.redirect('/places')
-    */
 })
 
 
