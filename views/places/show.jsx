@@ -5,26 +5,38 @@ function show(data) {
     return (
         <Def>
             <main>
-                <h2>{ data.place.name }</h2>
-                <img src={ data.place.pic } alt={ data.place.name } />
-                <h3>Location: { data.place.city }, { data.place.state }</h3>
-                <h4>Cuisines: { data.place.cuisines }</h4>
-                <section>
-                    <h2>Ratings</h2>
-                    <p>No ratings yet...</p>
-                </section>
-                <section>
-                    <h2>Comments</h2>
-                    <p>No comments yet...</p>
-                </section>
-                <a href={ `/places/${data.id}/edit` } className="btn btn-warning">
-                    Edit
-                </a>
-                <form method="POST" action={ `/places/${data.id}?_method=DELETE` }>
-                    <button type="submit" className="btn btn-danger">
-                        Delete
-                    </button>
-                </form>
+                <div className="row">
+                    <div className="col-sm-6">
+                        <img src={ data.place.pic } alt={ data.place.name } />
+                        <h2>Located in { data.place.city }, { data.place.state }</h2>
+                    </div>
+                    <div className="col-sm-6">
+                        <h1>{ data.place.name }</h1>
+                        <section>
+                            <h2>Ratings</h2>
+                            <h4>No ratings yet...</h4>
+                        </section>
+                        <section>
+                            <h2>Description</h2>
+                            <h4>{ data.place.showEstablished() }</h4>
+                            <h4>Serving { data.place.cuisines }</h4>
+                        </section>
+                        <div class="d-flex justify-content-center">
+                            <a href={ `/places/${data.id}/edit` } className="btn btn-warning">Edit</a>
+                            <form method="POST" action={ `/places/${data.id}?_method=DELETE` }>
+                                <button type="submit" className="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <section>
+                            <h2>Comments</h2>
+                            <h4>No comments yet...</h4>
+                        </section>
+                    </div>
+                </div>
             </main>
         </Def>
     )
