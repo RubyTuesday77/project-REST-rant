@@ -60,7 +60,7 @@ router.get('/new', (req, res) => {
 router.get('/:id', (req, res) => {
     db.Place.findById(req.params.id)
         .populate('comments')
-        .then((place) => {
+        .then(place => {
             console.log(place.comments)
             res.render('places/show', { place })
         })
@@ -116,10 +116,33 @@ router.delete('/:id', (req, res) => {
 })
 
 
-
 // Create route: POST /places/:id/rant:
-router.post('/:id/rant', (req, res) => {
-    res.send('GET /places/:id/rant stub')
+router.post('/:id/comment', (req, res) => {
+    console.log('post comment', req.body)
+    req.body.rant = req.body.rant ? true : false
+    db.Place.findById(req.params.id)
+        .then(place =>  {
+            db.Comment.create(req.body)
+                .then(comment =>  {
+                    place.comments.push(comment.id)
+                    place.save()
+                        .then(() => {
+                            res.redirect(`/places/${req.params.id}`)
+                        })
+                        .catch(err => {
+                            console.log('Failed save')
+                            res.render('error404')
+                        })
+                })
+                .catch(err => {
+                    console.log('Failed push')
+                    res.render('error404')
+                })
+        })
+        .catch(err =>  {
+            console.log('Failed to create')
+            res.render('error404')
+        })
 })
 
 
