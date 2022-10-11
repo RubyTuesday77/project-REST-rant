@@ -8,11 +8,10 @@ const db = require('../models')
 // Create route: GET /places:
 router.get('/', (req, res) => {
     db.Place.find()
-        .then((places) => {
+        .then(places => {
             res.render('places/index', { places })
         })
         .catch(err => {
-            console.log('err', err)
             res.render('error404')
         })
 })
@@ -40,7 +39,7 @@ router.post('/', (req, res) => {
                 res.render('places/new', { message })
             }
             else {
-            res.render('error404')
+                res.render('error404')
             }
         })
 })
@@ -71,22 +70,6 @@ router.get('/:id', (req, res) => {
 })
 
 
-
-// EDIT
-// Create EDIT route: GET /places/:id/edit:
-router.get('/:id/edit', (req, res) => {
-    db.Place.findById(req.params.id)
-        .then((place) => {
-            res.render('places/edit', { place })
-        })
-        .catch(err => {
-            console.log('err', err)
-            res.render('error404')
-        })
-})
-
-
-
 // UPDATE
 // Create UPDATE route: PUT /places/:id:
 router.put('/:id', (req, res) => {
@@ -101,12 +84,11 @@ router.put('/:id', (req, res) => {
 })
 
 
-
 // DELETE
 // Create DELETE route: DELETE /places/:id:
 router.delete('/:id', (req, res) => {
     db.Place.findByIdAndDelete(req.params.id)
-        .then(() => {
+        .then(place => {
             res.redirect('/places')
         })
         .catch(err => {
@@ -116,9 +98,21 @@ router.delete('/:id', (req, res) => {
 })
 
 
+// EDIT
+// Create EDIT route: GET /places/:id/edit:
+router.get('/:id/edit', (req, res) => {
+    db.Place.findById(req.params.id)
+        .then(place => {
+            res.render('places/edit', { place })
+        })
+        .catch(err => {
+            res.render('error404')
+        })
+})
+
+
 // Create route: POST /places/:id/rant:
 router.post('/:id/comment', (req, res) => {
-    console.log('post comment', req.body)
     req.body.rant = req.body.rant ? true : false
     db.Place.findById(req.params.id)
         .then(place =>  {
@@ -148,9 +142,20 @@ router.post('/:id/comment', (req, res) => {
 
 
 // Create route: DELETE /places/:id/rant/rantId:
-router.delete('/:id/rant/:rantId', (req, res) => {
-    res.send('GET /places/:id/rant/:rantId stub')
-})
+router.delete('/:id/comment/:commentId', (req, res) => {
+    db.Place.findOne({ id: req.params.id })
+        .then(place => {
+            db.Comment.findByIdAndDelete(req.params.commentId)
+                .then(place => {
+                    res.redirect(`/places/${req.params.id}`)
+                })
+        })
+        .catch(err => {
+            console.log("err", err)
+            res.render("error404")
+        });
+});
+  
 
 
 
